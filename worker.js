@@ -2,10 +2,33 @@ export default {
   async fetch(request, env, ctx) {
     const GROQ_API_KEY = "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";
 
+    // ✅ List of allowed model IDs (updated Aug 2025)
+    const allowedModels = [
+      "llama3.1-8b-instant",
+      "llama3-70b-8192",
+      "llama3-8b-8192",
+      "mixtral-8x7b-32768",
+      "gemma-7b-it",
+      "qwen1.5-32b-chat",
+      "mistral-7b-instruct"
+    ];
+
     if (request.method === 'GET') {
       const { searchParams } = new URL(request.url);
       const prompt = searchParams.get("prompt") || "Hello";
-      const model = searchParams.get("model") || "llama-3.1-8b-instant";
+
+      const modelParam = searchParams.get("model") || "";
+      const model = allowedModels.includes(modelParam) ? modelParam : null;
+
+      if (!model) {
+        return new Response(JSON.stringify({
+          error: "Invalid or missing model name.",
+          allowed_models: allowedModels
+        }, null, 2), {
+          status: 400,
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+        });
+      }
 
       const groqPayload = {
         model,
@@ -19,15 +42,29 @@ export default {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(groqPayload)
-      }); 
+      });
 
       return new Response(await response.text(), {
         headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
       });
     }
 
+    // POST method handler
     if (request.method === 'POST') {
-      const body = await request.text();
+      const body = await request.json();
+
+      const modelParam = body.model || "";
+      const model = allowedModels.includes(modelParam) ? modelParam : null;
+
+      if (!model) {
+        return new Response(JSON.stringify({
+          error: "Invalid or missing model name.",
+          allowed_models: allowedModels
+        }, null, 2), {
+          status: 400,
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+        });
+      }
 
       const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
@@ -35,7 +72,7 @@ export default {
           "Authorization": `Bearer ${GROQ_API_KEY}`,
           "Content-Type": "application/json"
         },
-        body
+        body: JSON.stringify({ ...body, model })
       });
 
       return new Response(await response.text(), {
@@ -45,4 +82,4 @@ export default {
 
     return new Response("Method Not Allowed", { status: 405 });
   }
-}
+};
