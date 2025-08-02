@@ -1,6 +1,6 @@
 export default {
   async fetch(request, env, ctx) {
-    const GROQ_API_KEY = env.GROQ_API_KEY;
+    const GROQ_API_KEY = "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";
 
     if (request.method === 'GET') {
       const { searchParams } = new URL(request.url);
@@ -19,14 +19,13 @@ export default {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(groqPayload)
-      });
+      }); 
 
       return new Response(await response.text(), {
         headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
       });
     }
 
-    // POST Forwarding (OpenAI-style)
     if (request.method === 'POST') {
       const body = await request.text();
 
@@ -46,4 +45,4 @@ export default {
 
     return new Response("Method Not Allowed", { status: 405 });
   }
-};
+}
