@@ -4,6 +4,7 @@ export default {
 
     // ✅ List of allowed model IDs (updated Aug 2025)
     const allowedModels = [
+    "llama-3.3-70b-versatile",
     "llama-3.1-8b-instant",
     "llama3-8b-8192",
     "llama3-70b-8192",
@@ -11,9 +12,7 @@ export default {
     "qwen/qwen3-32b",
     "moonshotai/kimi-k2-instruct",
     "compound-beta",
-    "compound-beta-mini",
-    "llama3-groq-8b-8192-tool-use-preview",
-    "llama3-groq-70b-8192-tool-use-preview",
+    "compound-beta-mini"
     "meta-llama/llama-4-scout-17b-16e-instruct",
     "meta-llama/llama-4-maverick-17b-128e-instruct",
     "deepseek-r1-distill-llama-70b"
