@@ -4,13 +4,14 @@ export default {
 
     // ✅ List of allowed model IDs (updated Aug 2025)
     const allowedModels = [
-      "llama3.1-8b-instant",
-      "llama3-70b-8192",
-      "llama3-8b-8192",
-      "mixtral-8x7b-32768",
-      "gemma-7b-it",
-      "qwen1.5-32b-chat",
-      "mistral-7b-instruct"
+    "llama-3.1-8b-instant",
+    "llama3-8b-8192",
+    "llama3-70b-8192",
+    "mixtral-8x7b-32768",
+    "qwen/qwen3-32b",
+    "moonshotai/kimi-k2-instruct",
+    "compound-beta",
+    "compound-beta-mini"
     ];
 
     if (request.method === 'GET') {
