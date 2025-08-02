@@ -12,7 +12,7 @@ export default {
     "qwen/qwen3-32b",
     "moonshotai/kimi-k2-instruct",
     "compound-beta",
-    "compound-beta-mini"
+    "compound-beta-mini",
     "meta-llama/llama-4-scout-17b-16e-instruct",
     "meta-llama/llama-4-maverick-17b-128e-instruct",
     "deepseek-r1-distill-llama-70b"
