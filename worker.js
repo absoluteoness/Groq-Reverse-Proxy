@@ -1,6 +1,6 @@
 export default {
   async fetch(request, env, ctx) {
-    const GROQ_API_KEY = "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";
+    const GROQ_API_KEY = "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";
 
     // ✅ List of allowed model IDs (updated Aug 2025)
     const allowedModels = [
